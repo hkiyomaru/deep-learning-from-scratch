@@ -24,3 +24,7 @@ pip-delete-this-directory.txt
 venv/
 ENV/
 env/
+
+# dataset
+*.gz
+*.pkl
