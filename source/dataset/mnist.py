@@ -24,6 +24,7 @@ img_size = 784
 
 
 def _download(file_name):
+    """Download original MNIST dataset."""
     file_path = dataset_dir + "/" + file_name
 
     if os.path.exists(file_path):
@@ -35,11 +36,13 @@ def _download(file_name):
 
 
 def download_mnist():
+    """Call _download for testing and training data."""
     for v in key_file.values():
         _download(v)
 
 
 def _load_label(file_name):
+    """Load labels as a numpy array."""
     file_path = dataset_dir + "/" + file_name
 
     print("Converting " + file_name + " to NumPy Array ...")
@@ -51,6 +54,7 @@ def _load_label(file_name):
 
 
 def _load_img(file_name):
+    """Load images as a numpy array."""
     file_path = dataset_dir + "/" + file_name
 
     print("Converting " + file_name + " to NumPy Array ...")
@@ -63,6 +67,7 @@ def _load_img(file_name):
 
 
 def _convert_numpy():
+    """Create dataset as numpy objects."""
     dataset = {}
     dataset['train_img'] = _load_img(key_file['train_img'])
     dataset['train_label'] = _load_label(key_file['train_label'])
@@ -73,6 +78,7 @@ def _convert_numpy():
 
 
 def init_mnist():
+    """Download MNIST and save the dataset as a pickle file."""
     download_mnist()
     dataset = _convert_numpy()
     print("Creating pickle file ...")
@@ -82,6 +88,7 @@ def init_mnist():
 
 
 def _change_ont_hot_label(X):
+    """Convert labels as one hot labels."""
     T = np.zeros((X.size, 10))
     for idx, row in enumerate(T):
         row[X[idx]] = 1
@@ -90,6 +97,7 @@ def _change_ont_hot_label(X):
 
 
 def load_mnist(normalize=True, flatten=True, one_hot_label=False):
+    """Load MNIST from pickle file."""
     if not os.path.exists(save_file):
         init_mnist()
 
